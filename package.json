@@ -2,9 +2,21 @@
   "name": "season-less-repayment",
   "version": "1.0.0",
   "description": "season-less CRM",
-  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "build:watch": "tsc --watch",
+    "build": "rimraf ./build && tsc",
+    "start": "cross-env NODE_ENV=production node build/index.js",
+    "dev": "nodemon src/index.ts",
+    "pretest": "npm run drop-table:test && npm run create-table:test",
+    "test": "cross-env NODE_ENV=test jest --coverage --runInBand --detectOpenHandles --forceExit",
+    "lint": "eslint . --ext .ts",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./ormconfig.js",
+    "create-table": "npm run typeorm:cli -- migration:run",
+    "drop-table": "npm run typeorm:cli -- schema:drop",
+    "create-table:test": "cross-env NODE_ENV=test npm run typeorm:cli -- migration:run",
+    "drop-table:test": "cross-env NODE_ENV=test npm run typeorm:cli -- schema:drop",
+    "create-table:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- migration:run",
+    "drop-table:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- schema:drop"
   },
   "repository": {
     "type": "git",
@@ -20,6 +32,38 @@
   },
   "homepage": "https://github.com/desirekaleba/season-less-repayment#readme",
   "devDependencies": {
-    "@types/node": "^16.7.9"
+    "@types/jest": "^27.0.1",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@types/node": "^16.7.9",
+    "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
+    "supertest": "^6.1.6",
+    "ts-node": "^10.2.1"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
+    "jest": "^27.1.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.5",
+    "typeorm": "^0.2.37",
+    "typeorm-seeding": "^1.6.1",
+    "typescript": "^4.4.2",
+    "winston": "^3.3.3"
   }
 }
