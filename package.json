@@ -11,12 +11,12 @@
     "test": "cross-env NODE_ENV=test jest --coverage --runInBand --detectOpenHandles --forceExit",
     "lint": "eslint . --ext .ts",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./ormconfig.js",
-    "create-table": "npm run typeorm:cli -- migration:run",
-    "drop-table": "npm run typeorm:cli -- schema:drop",
-    "create-table:test": "cross-env NODE_ENV=test npm run typeorm:cli -- migration:run",
-    "drop-table:test": "cross-env NODE_ENV=test npm run typeorm:cli -- schema:drop",
-    "create-table:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- migration:run",
-    "drop-table:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- schema:drop"
+    "create-tables": "npm run typeorm:cli -- migration:run",
+    "drop-tables": "npm run typeorm:cli -- schema:drop",
+    "create-tables:test": "cross-env NODE_ENV=test npm run typeorm:cli -- migration:run",
+    "drop-tables:test": "cross-env NODE_ENV=test npm run typeorm:cli -- schema:drop",
+    "create-tables:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- migration:run",
+    "drop-tables:prod": "cross-env NODE_ENV=production npm run typeorm:cli -- schema:drop"
   },
   "repository": {
     "type": "git",

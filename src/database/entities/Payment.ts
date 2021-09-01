@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class CustomerSummary extends BaseEntity {
+export class Payment extends BaseEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
     id: number;
 
@@ -16,9 +16,9 @@ export class CustomerSummary extends BaseEntity {
     @Column({ name: 'season_id' })
     seasonId: number;
 
-    @Column({ name: 'total_paid', type: 'numeric', precision: 10, scale: 2 })
-    totalPaid: number;
+    @Column({ name: 'amount', type: 'numeric', precision: 10, scale: 2 })
+    amount: number;
 
-    @Column({ name: 'total_credit', type: 'numeric', precision: 10, scale: 2 })
-    totalCredit: number;
+    @Column({ name: 'date' })
+    date: Date;
 }

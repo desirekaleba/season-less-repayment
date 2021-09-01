@@ -8,6 +8,6 @@ export const initializeDB = async (): Promise<void> => {
             `Database: ${conn.options.database} is successfully initialized`,
         );
     } catch (error) {
-        logger.info(`Database failed to connect ${error.message}`);
+        logger.info(`Database failed to connect ${error}`);
     }
 };
