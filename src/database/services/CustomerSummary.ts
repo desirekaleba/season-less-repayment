@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm';
 import { CreateCustomerSummaryDto } from '../../dtos/createCustomerSummary';
 import { CustomerSummary } from '../entities/CustomerSummary';
-import { findAll, findByCustomer, findByCustomerAndSeason } from '../queries/CustomerService';
+import { findAll, _findByCustomer, findByCustomerAndSeason, findBySeason } from '../queries/CustomerService';
 
 export class CustomerSummaryService {
     create = async (customerSummaryInput: CreateCustomerSummaryDto) => {
@@ -22,11 +22,17 @@ export class CustomerSummaryService {
 
     getByCustomer = async (customerId: number) => {
         const customerSummaries = await getConnection().manager.query(
-            findByCustomer(customerId),
+            _findByCustomer(customerId),
         );
         return customerSummaries;
     };
 
+    getBySeason = async (seasonId: number) => {
+        const customerSummaries = await getConnection().manager.query(
+            findBySeason(seasonId),
+        );
+        return customerSummaries;
+    };
     update = async (id: number, data: CreateCustomerSummaryDto) => {
         const customerSummary = await CustomerSummary.findOne(id);
         if (customerSummary) {

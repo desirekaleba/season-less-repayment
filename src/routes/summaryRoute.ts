@@ -16,5 +16,17 @@ export class CustomerSummaryRoute implements IRoute {
         this.router
             .route(`${this.path}`)
             .get(asyncHandler(this.customerSummaryController.getAll));
+
+        this.router
+            .route(`${this.path}/:customerId/byCustomer`)
+            .get(asyncHandler(this.customerSummaryController.getByCustomer));
+
+        this.router
+            .route(`${this.path}/:seasonId/bySeason`)
+            .get(asyncHandler(this.customerSummaryController.getBySeason));
+
+        this.router
+            .route(`${this.path}/:customerId/:seasonId/byCustomerAndSeason`)
+            .get(asyncHandler(this.customerSummaryController.getByCustomerAndSeason));
     }
 }
