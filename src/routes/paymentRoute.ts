@@ -15,6 +15,15 @@ export class PaymentRoute implements IRoute {
     private initializeRoutes(): void {
         this.router
             .route(`${this.path}`)
-            .post(asyncHandler(this.paymentController.createPayment));
+            .post(asyncHandler(this.paymentController.createPayment))
+            .get(asyncHandler(this.paymentController.findAll));
+
+        this.router
+            .route(`${this.path}/:customerId/byCustomer`)
+            .get(asyncHandler(this.paymentController.findByCustomerId));
+
+        this.router
+            .route(`${this.path}/:seasonId/bySeason`)
+            .get(asyncHandler(this.paymentController.findBySeasonId));
     }
 }

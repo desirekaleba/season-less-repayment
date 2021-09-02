@@ -1,6 +1,6 @@
 export const findAll = (): string => {
     return `
-        SELECT cs.id, c.customer_id, s.season_id FROM customer_summary cs
+        SELECT cs.id, cs.total_paid, cs.total_credit, c.customer_id, c.customer_name, s.season_id, s.season_name FROM customer_summary cs
         INNER JOIN customer c ON cs.customer_id = c.customer_id
         INNER JOIN season s ON cs.season_id = s.season_id
         GROUP BY cs.id

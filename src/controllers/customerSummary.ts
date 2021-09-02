@@ -15,6 +15,14 @@ export class CustomerSummaryController {
             message: 'Customer summary created successfully',
             data: customerSummary
         });
+    };
+
+    getAll = async (req: Request, res: Response) => {
+        const summaries = await this.customerSummaryService.getAll();
+        res.status(200).json({
+            status: 'success',
+            data: summaries
+        });
     }
 }
 

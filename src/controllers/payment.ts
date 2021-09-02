@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CreatePaymentDto } from '../dtos/createPayment';
 import { PaymentService } from '../database/services/Payment';
 import { CustomerSummaryService } from '../database/services/CustomerSummary';
+import { CREATED, OK, SERVER_ERROR } from '../constants/statusCodes';
 
 export class PaymentController {
     constructor(
@@ -48,11 +49,36 @@ export class PaymentController {
             await this.customerSummaryService.update(id, { customerId, seasonId, totalPaid, totalCredit });
             await this.paymentService.create({ customerId, seasonId, amount, date });
         }
-        return res.status(201).json({
+        return res.status(CREATED).json({
             status: 'success',
             message: 'Payment made successfully!'
         });
 
+    };
+
+    findAll = async (req: Request, res: Response) => {
+        const payments = await this.paymentService.findAll();
+        return res.status(OK).json({
+            status: 'success',
+            data: payments
+        });
+    };
+
+    findByCustomerId = async (req: Request, res: Response) => {
+        const { customerId } = req.params;
+        const payments = await this.paymentService.findByCustomerId(Number(customerId));
+        return res.status(OK).json({
+            status: 'success',
+            data: payments
+        });
+    };
+
+    findBySeasonId = async (req: Request, res: Response) => {
+        const { seasonId } = req.params;
+        const payments = await this.paymentService.findBySeasonId(Number(seasonId));
+        return res.status(OK).json({
+            status: 'success',
+            data: payments
+        })
     }
 }
-
