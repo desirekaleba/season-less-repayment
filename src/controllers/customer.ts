@@ -29,7 +29,6 @@ export class CustomerController {
     getById = async (req: Request, res: Response) => {
         const { customerId } = req.params;
         const customer = await this.customerService.getById(Number(customerId));
-        console.log(customer);
         return res.status(OK).json({
             status: 'success',
             data: customer
