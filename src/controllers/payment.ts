@@ -23,17 +23,18 @@ export class PaymentController {
                 const { id, customer_id, season_id, total_paid, total_credit } = currentCustomerSummaries[count];
                 const customerId = customer_id;
                 const seasonId = season_id;
-                const amount = balanceAmount;
                 let totalPaid_ = Number(total_paid) + Number(balanceAmount);
                 const totalCredit = Number(total_credit);
-                if ((totalPaid_ > totalCredit) && (count < (currentCustomerSummaries.length) - 1)) {
+                if ((totalPaid_ > totalCredit) && (count < currentCustomerSummaries.length - 1)) {
                     count++;
                     const balance = totalPaid_ - totalCredit;
+                    const amount = balanceAmount - balance;
                     const totalPaid = totalCredit;
                     await context.paymentService.create({ customerId, seasonId, amount, date });
                     await context.customerSummaryService.update(id, { customerId, seasonId, totalPaid, totalCredit });
                     cascade(context, balance);
                 } else {
+                    const amount = balanceAmount;
                     const totalPaid = Number(total_paid) + Number(balanceAmount);
                     await context.paymentService.create({ customerId, seasonId, amount, date });
                     await context.customerSummaryService.update(id, { customerId, seasonId, totalPaid, totalCredit });
