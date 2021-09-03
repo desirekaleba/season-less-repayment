@@ -15,6 +15,7 @@ export class CustomerSummaryRoute implements IRoute {
     private initializeRoutes(): void {
         this.router
             .route(`${this.path}`)
+            .post(asyncHandler(this.customerSummaryController.createCustomerSummary))
             .get(asyncHandler(this.customerSummaryController.getAll));
 
         this.router
